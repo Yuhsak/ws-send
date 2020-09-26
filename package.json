@@ -1,15 +1,44 @@
 {
   "name": "ws-send",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Utility to enable sending any types of data through WebSocket by ws.",
-  "main": "index.js",
+  "main": "lib/common/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/esm/index.d.ts",
+  "files": [
+    "lib",
+    "!lib/**/*.tsbuildinfo",
+    "src",
+    "!**/*/tempCodeRunnerFile.ts",
+    "tsconfig.json",
+    "tsconfig.esm.json"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf lib",
+    "test": "jest",
+    "build": "npm run clean && tsc -b tsconfig.json tsconfig.esm.json",
+    "build:watch": "npm run build -- --watch",
+    "start": "npm run build:watch",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "'https://github.com/Yuhsak/ws-send'"
   },
   "author": "Yuhsak Inoue",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "serialify": "^0.2.3"
+  },
+  "peerDependencies": {
+    "ws": "*"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@types/ws": "^7.2.6",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.4.0",
+    "typescript": "^4.0.3",
+    "ws": "^7.3.1"
+  }
 }
