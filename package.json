@@ -1,7 +1,7 @@
 {
   "name": "ws-send",
-  "version": "0.1.0",
-  "description": "Utility to enable sending any types of data through WebSocket by ws.",
+  "version": "0.1.1",
+  "description": "Utility which enables sending any types of data through WebSocket by ws.",
   "main": "lib/common/index.js",
   "module": "lib/esm/index.js",
   "types": "lib/esm/index.d.ts",
@@ -9,7 +9,7 @@
     "lib",
     "!lib/**/*.tsbuildinfo",
     "src",
-    "!**/*/tempCodeRunnerFile.ts",
+    "!**/*/tempCodeRunnerFile.*",
     "tsconfig.json",
     "tsconfig.esm.json"
   ],
