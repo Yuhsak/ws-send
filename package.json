@@ -1,0 +1,15 @@
+{
+  "name": "ws-send",
+  "version": "0.0.1",
+  "description": "Utility to enable sending any types of data through WebSocket by ws.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "'https://github.com/Yuhsak/ws-send'"
+  },
+  "author": "Yuhsak Inoue",
+  "license": "MIT"
+}
