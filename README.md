@@ -39,6 +39,10 @@ wsServer.on('connection', ws => {
     }
   })
 
+  ws.on('close', () => {
+    // wss will be cleaned up automatically when its corresponding socket closes
+  })
+
 })
 
 httpServer.listen(8000)

@@ -1,7 +1,7 @@
 {
   "name": "ws-send",
-  "version": "0.1.2",
-  "description": "Utility which enables sending any types of data through WebSocket by ws.",
+  "version": "0.1.4",
+  "description": "Send any types of data through WebSocket by ws.",
   "author": {
     "name": "Yuhsak Inoue",
     "email": "yuhsak.inoue@gmail.com",
