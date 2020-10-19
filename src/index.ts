@@ -4,6 +4,9 @@ import {stringify, parse} from 'serialify'
 
 import type WebSocket from 'ws'
 
+export type SendOption = {mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean}
+export type SendCallback = (err?: Error) => void
+
 export declare interface WSSend<T=any, R=T> {
   on(event: 'message', handler: (data: R) => void): this
 }
@@ -14,8 +17,10 @@ export class WSSend<T=any, R=T> extends EventEmitter {
     super()
     this.handleMessage = this.handleMessage.bind(this)
     this.handleClose = this.handleClose.bind(this)
-    this.socket.on('message', this.handleMessage)
-    this.socket.on('close', this.handleClose)
+    if (this.socket.readyState !== this.socket.CLOSED) {
+      this.socket.on('message', this.handleMessage)
+      this.socket.on('close', this.handleClose)
+    }
   }
 
   private async handleMessage(data: any) {
@@ -38,14 +43,22 @@ export class WSSend<T=any, R=T> extends EventEmitter {
     this.removeAllListeners()
   }
 
-  public async send(data: T): Promise<void> {
-    return new Promise((resolve, reject) => {
+  public send(data: T): Promise<void>
+  public send(data: T, options?: SendOption): Promise<void>
+  public send(data: T, cb?: SendCallback): void
+  public send(data: T, options?: SendOption, cb?: SendCallback): void
+  public send(data: T, optionOrCallback?: SendOption | SendCallback, callback?: SendCallback): Promise<void> | void {
+    const option = typeof optionOrCallback === 'function' ? {} : (optionOrCallback || {})
+    const cb = typeof optionOrCallback === 'function' ? optionOrCallback : callback
+    const p = new Promise<void>((resolve, reject) => {
       const s = stringify({__type: 'ws-send', __data: data})
       const b = Buffer.from(s)
-      this.socket.send(b, err => {
+      this.socket.send(b, option, err => {
         err ? reject(err) : resolve()
       })
     })
+    p.catch(e => {cb?.(e)})
+    return cb ? void (0) : p
   }
 
 }

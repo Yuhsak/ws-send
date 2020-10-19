@@ -1,6 +1,6 @@
 {
   "name": "ws-send",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Send any types of data through WebSocket by ws.",
   "author": {
     "name": "Yuhsak Inoue",
