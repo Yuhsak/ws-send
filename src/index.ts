@@ -27,8 +27,8 @@ export class WSSend<T=any, R=T> extends EventEmitter {
     try {
       const s = data.toString()
       const d = parse(s)
-      if (d?.__type === 'ws-send' && d?.__data) {
-        this.emit('message', d.__data)
+      if (d?.__t === 'ws-send' && d?.__v) {
+        this.emit('message', d.__v)
       }
     } catch(e) {}
   }
@@ -51,7 +51,7 @@ export class WSSend<T=any, R=T> extends EventEmitter {
     const option = typeof optionOrCallback === 'function' ? {} : (optionOrCallback || {})
     const cb = typeof optionOrCallback === 'function' ? optionOrCallback : callback
     const p = new Promise<void>((resolve, reject) => {
-      const s = stringify({__type: 'ws-send', __data: data})
+      const s = stringify({__t: 'ws-send', __v: data})
       const b = Buffer.from(s)
       this.socket.send(b, option, err => {
         err ? reject(err) : resolve()
