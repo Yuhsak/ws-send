@@ -1,6 +1,6 @@
 # ws-send
 
-Utility which enables sending any types of data through WebSocket by ws
+Send any types of data through WebSocket by ws.
 
 ## Install
 
