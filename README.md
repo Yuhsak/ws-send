@@ -96,8 +96,12 @@ The types below are currently supported.
 - `Object`
 - `Set`
 - `Map`
+- `URL`
+- `URLSearchParams`
 - `Buffer`
+- `DataView`
 - `ArrayBuffer`
+- `SharedArrayBuffer`
 - `Int8Array`
 - `Uint8Array`
 - `Uint8ClampedArray`

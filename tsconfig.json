@@ -1,15 +1,14 @@
 {
-  "exclude": [
-    "lib",
-    "tests",
+  "include": [
+    "src"
   ],
   "compilerOptions": {
     "incremental": true,
     "target": "es5",
     "module": "commonjs",
-    "lib": [
-      "esnext"
-    ],
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "outDir": "./lib/common",
     "rootDir": "./src",
     "tsBuildInfoFile": "./lib/common/tsconfig.tsbuildinfo",
