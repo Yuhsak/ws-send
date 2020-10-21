@@ -1,6 +1,6 @@
 {
   "name": "ws-send",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Send any types of data through WebSocket by ws.",
   "author": {
     "name": "Yuhsak Inoue",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "pico-queue": "^1.0.2",
-    "serialify": "^0.5.0"
+    "serialify": "^0.5.1"
   },
   "peerDependencies": {
     "ws": "*"
