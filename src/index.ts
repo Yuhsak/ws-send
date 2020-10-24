@@ -6,7 +6,6 @@ import type WebSocket from 'ws'
 
 export type SendOption = {mask?: boolean; binary?: boolean; compress?: boolean; fin?: boolean}
 export type SendCallback = (err?: Error) => void
-
 export declare interface WSSend<T=any, R=T> {
   on(event: 'message', handler: (data: R) => void): this
 }

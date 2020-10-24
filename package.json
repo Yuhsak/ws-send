@@ -1,6 +1,6 @@
 {
   "name": "ws-send",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Send any types of data through WebSocket by ws.",
   "author": {
     "name": "Yuhsak Inoue",
@@ -37,7 +37,6 @@
     "test:ci": "npm run test && coveralls < coverage/lcov.info"
   },
   "dependencies": {
-    "pico-queue": "^1.0.4",
     "serialify": "^0.5.8"
   },
   "peerDependencies": {
