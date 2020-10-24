@@ -33,7 +33,7 @@ const connect = <T=any, R=T>(handler: (wssend: WSSend<T, R>) => void) => {
   })
 }
 
-describe('sendify', () => {
+describe('send', () => {
 
   test('string', (done) => {
 
@@ -179,6 +179,111 @@ describe('sendify', () => {
         done()
       })
       wssend.send(obj)
+    })
+
+  })
+
+})
+
+describe('send:callback', () => {
+
+  test('no callback, no option', done => {
+
+    connect(wssend => {
+      const r = wssend.send('test')
+      expect(r).toBeInstanceOf(Promise)
+      r.then(done)
+    })
+
+  })
+
+  test('no callback, with option', done => {
+
+    connect(wssend => {
+      const r = wssend.send('test', {compress: false})
+      expect(r).toBeInstanceOf(Promise)
+      r.then(done)
+    })
+
+  })
+
+  test('with callback, no option', done => {
+
+    connect(wssend => {
+      const r = wssend.send('test', () => {
+        done()
+      })
+      expect(r).toBe(void(0))
+    })
+
+  })
+
+  test('with callback, with option', done => {
+
+    connect(wssend => {
+      const r = wssend.send('test', {compress: false}, () => {
+        done()
+      })
+      expect(r).toBe(void (0))
+    })
+
+  })
+
+  test('error', done => {
+
+    connect(wssend => {
+      wssend.socket.once('close', () => {
+        wssend.send('error', err => {
+          expect(err).toBeInstanceOf(Error)
+          done()
+        })
+      })
+      wssend.socket.close()
+    })
+
+  })
+
+})
+
+describe('cleanup', () => {
+
+  test('close', done => {
+    const ws = new WebSocket('ws://localhost:8000')
+    expect(ws.listenerCount('message')).toBe(0)
+    expect(ws.listenerCount('close')).toBe(0)
+
+    const wss = sendify(ws)
+    expect(wss.listenerCount('message')).toBe(0)
+    expect(ws.listenerCount('message')).toBe(1)
+    expect(ws.listenerCount('close')).toBe(1)
+
+    // @ts-ignore
+    wss.handleMessage('null')
+    // @ts-ignore
+    wss.handleMessage('{"__t": "Undefined", "__v": "undefined"}')
+    // @ts-ignore
+    wss.handleMessage('{"__t": "Unknown"}')
+
+    ws.once('open', () => {
+      wss.on('message', () => {})
+      expect(wss.listenerCount('message')).toBe(1)
+      expect(ws.listenerCount('message')).toBe(1)
+      expect(ws.listenerCount('close')).toBe(2)
+      ws.close()
+    })
+
+    ws.once('close', () => {
+      setTimeout(() => {
+        expect(wss.listenerCount('message')).toBe(0)
+        expect(ws.listenerCount('message')).toBe(0)
+        expect(ws.listenerCount('close')).toBe(0)
+
+        const cwss = sendify(ws)
+        expect(cwss.listenerCount('message')).toBe(0)
+        expect(ws.listenerCount('message')).toBe(0)
+        expect(ws.listenerCount('close')).toBe(0)
+        done()
+      }, 30)
     })
 
   })

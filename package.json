@@ -1,6 +1,6 @@
 {
   "name": "ws-send",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Send any types of data through WebSocket by ws.",
   "author": {
     "name": "Yuhsak Inoue",
@@ -24,16 +24,21 @@
     "tsconfig.esm.json"
   ],
   "scripts": {
-    "clean": "rm -rf lib",
-    "test": "jest",
-    "build": "npm run clean && tsc -b tsconfig.json tsconfig.esm.json",
+    "clean:dist": "rimraf lib",
+    "clean:test": "rimraf coverage",
+    "clean": "run-p clean:*",
+    "pretest": "npm run clean:test",
+    "test": "jest --coverage",
     "build:watch": "npm run build -- --watch",
+    "prebuild": "npm run clean:dist",
+    "build": "tsc -b tsconfig.json tsconfig.esm.json",
     "start": "npm run build:watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test:ci": "npm run test && coveralls < coverage/lcov.info"
   },
   "dependencies": {
-    "pico-queue": "^1.0.3",
-    "serialify": "^0.5.5"
+    "pico-queue": "^1.0.4",
+    "serialify": "^0.5.8"
   },
   "peerDependencies": {
     "ws": "*"
@@ -41,7 +46,10 @@
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "@types/ws": "^7.2.6",
+    "coveralls": "^3.1.0",
     "jest": "^26.4.2",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.4.0",
     "typescript": "^4.0.3",
     "ws": "^7.3.1"

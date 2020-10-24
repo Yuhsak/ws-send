@@ -1,0 +1,16 @@
+os: linux
+dist: focal
+language: node_js
+node_js:
+  - 12
+script: npm run test:ci
+deploy:
+  provider: npm
+  email: yuhsak.inoue@gmail.com
+  api_token:
+    secure: X9ThF4Auv8T6BL+CcPdyGLPPhQ3QRUsd8x3Zt5HlR8YN0c3EJ971XBergQ7VXrXKYG1FM3s4Ply/w/jIT6ZJBog6y0u/pM88Assd2n45ac43+h8Bf1SpNH7O8uoRwOWFa6zQdZp6hbb7UKrbfbjA06gW9XUzmciXq+ZtwEhVDjiFDKfK1/STiiY7lPTfztj6wt5n5a2KIqp9bTddeiPckAHHra4eZNdkUfZI3RGetXp4gH8rO9Xw40L285tVtdM94lyh7Ovfqsl8WhUFJXp+G4s8gsO3DkTCT9BnQ7sMmgXGwCLzhdTrkBXcqqVxKBxDEdEtFm2IT04cVKuifNA5x5A4kNDLPTSr8ySSdXXwsdHgnjneUmq96bk4FXg9Cwv8lDQkxaZO8TOql9RDn14rA456eXr3CEEu6C5xK0nFIMx13XT1uSl/VkiPkYMSWMAtAyc2JK29ZQfWz2C2xcdEZeOQ0g4JaeU3ZXH8zh44J2EEUnckTq1biKiQlyxkt6/IQFF97oyLOLW+blWYGEkYfoFvK8c+OxSkqIwOJfmNaB5xVB7TGN2RPgDm21uYgI4S/FGVKKfHvbXMwknMS3pDCQv+qkWDFV56vQfR6ujPXE/WTizbsypF/5itjsp1t7XalbHqqmXSqiE7i8ACzaogr1rgSvaNaq2Lkm7tMUGUFl4=
+  on:
+    tags: true
+    repo: Yuhsak/ws-send
+    branch: main
+  skip_cleanup: true

@@ -23,11 +23,12 @@ export class WSSend<T=any, R=T> extends EventEmitter {
     }
   }
 
-  private async handleMessage(data: any) {
+  private async handleMessage(data: Buffer | string) {
     try {
       const s = data.toString()
       const d = parse(s)
-      if (d?.__t === 'ws-send' && d?.__v) {
+      if (d === void (0) || d === null) return
+      if (d.__t === 'ws-send') {
         this.emit('message', d.__v)
       }
     } catch(e) {}
@@ -54,10 +55,11 @@ export class WSSend<T=any, R=T> extends EventEmitter {
       const s = stringify({__t: 'ws-send', __v: data})
       const b = Buffer.from(s)
       this.socket.send(b, option, err => {
+        cb && cb(err)
         err ? reject(err) : resolve()
       })
     })
-    p.catch(e => {cb?.(e)})
+    if (cb) p.catch(() => {})
     return cb ? void (0) : p
   }
 

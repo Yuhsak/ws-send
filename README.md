@@ -1,4 +1,4 @@
-# ws-send
+# ws-send [![Build Status](https://travis-ci.org/Yuhsak/ws-send.svg?branch=main)](https://travis-ci.org/Yuhsak/ws-send) [![Coverage Status](https://coveralls.io/repos/github/Yuhsak/ws-send/badge.svg?branch=main)](https://coveralls.io/github/Yuhsak/ws-send?branch=main)
 
 Send any types of data through WebSocket by ws.
 
@@ -101,7 +101,6 @@ The types below are currently supported.
 - `Buffer`
 - `DataView`
 - `ArrayBuffer`
-- `SharedArrayBuffer`
 - `Int8Array`
 - `Uint8Array`
 - `Uint8ClampedArray`
